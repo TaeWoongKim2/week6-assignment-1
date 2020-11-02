@@ -38,7 +38,7 @@ describe('RestaurantContainer', () => {
   context('without a restaurant', () => {
     beforeEach(() => {
       useSelector.mockImplementation((selector) => selector({
-        restaurant: [],
+        restaurant: {},
       }));
     });
 

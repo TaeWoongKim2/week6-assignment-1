@@ -10,6 +10,8 @@ export async function fetchRestaurants() {
   return [];
 }
 
-export async function fetchRestaurant() {
-  return [];
+export async function fetchRestaurant({ id }) {
+  return {
+    id,
+  };
 }

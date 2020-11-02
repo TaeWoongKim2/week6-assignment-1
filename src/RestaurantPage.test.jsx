@@ -10,23 +10,33 @@ import RestaurantPage from './RestaurantPage';
 
 import RESTAURANT from '../fixtures/restaurant';
 
-test('RestaurantPage', () => {
+describe('RestaurantPage', () => {
   const dispatch = jest.fn();
 
-  useDispatch.mockImplementation(() => dispatch);
+  beforeEach(() => {
+    dispatch.mockClear();
 
-  useSelector.mockImplementation((selector) => selector({
-    restaurant: RESTAURANT,
-  }));
+    useDispatch.mockImplementation(() => dispatch);
 
-  const { container } = render((
-    <MemoryRouter>
-      <RestaurantPage />
-    </MemoryRouter>
-  ));
+    useSelector.mockImplementation((selector) => selector({
+      restaurant: RESTAURANT,
+    }));
+  });
 
-  expect(dispatch).toBeCalled();
+  function renderRestaurantPage() {
+    return render((
+      <MemoryRouter initialEntries={['/restaurants/1']}>
+        <RestaurantPage />
+      </MemoryRouter>
+    ));
+  }
 
-  expect(container).toHaveTextContent(RESTAURANT.name);
-  expect(container).toHaveTextContent(RESTAURANT.address);
+  it('renders links of restaurants', () => {
+    const { container } = renderRestaurantPage();
+
+    expect(dispatch).toBeCalled();
+
+    expect(container).toHaveTextContent(RESTAURANT.name);
+    expect(container).toHaveTextContent(RESTAURANT.address);
+  });
 });
